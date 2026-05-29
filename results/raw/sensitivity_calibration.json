@@ -1,0 +1,46 @@
+[
+  {
+    "experiment": "sensitivity_calibration",
+    "model": "mlp",
+    "calibration": "minmax",
+    "granularity": "per_channel",
+    "cosine_similarity": 0.9996572136878967,
+    "max_absolute_error": 0.021710321307182312,
+    "mean_absolute_error": 0.00415387935936451,
+    "root_mean_squared_error": 0.005205380730330944,
+    "relative_error": 0.15818868577480316
+  },
+  {
+    "experiment": "sensitivity_calibration",
+    "model": "mlp",
+    "calibration": "percentile_99.99",
+    "granularity": "per_channel",
+    "cosine_similarity": 0.9998309016227722,
+    "max_absolute_error": 0.016381211578845978,
+    "mean_absolute_error": 0.0029143397696316242,
+    "root_mean_squared_error": 0.0036554676480591297,
+    "relative_error": 0.28212952613830566
+  },
+  {
+    "experiment": "sensitivity_calibration",
+    "model": "attention",
+    "calibration": "minmax",
+    "granularity": "per_channel",
+    "cosine_similarity": 0.9997180104255676,
+    "max_absolute_error": 0.013626810163259506,
+    "mean_absolute_error": 0.0022235382348299026,
+    "root_mean_squared_error": 0.0029862283263355494,
+    "relative_error": 0.20079776644706726
+  },
+  {
+    "experiment": "sensitivity_calibration",
+    "model": "attention",
+    "calibration": "percentile_99.99",
+    "granularity": "per_channel",
+    "cosine_similarity": 0.9991315007209778,
+    "max_absolute_error": 0.02307043969631195,
+    "mean_absolute_error": 0.004027860704809427,
+    "root_mean_squared_error": 0.005274187307804823,
+    "relative_error": 0.3648838698863983
+  }
+]

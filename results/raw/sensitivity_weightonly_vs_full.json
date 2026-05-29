@@ -1,0 +1,134 @@
+[
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "mlp",
+    "layer": "fc1",
+    "mode": "weight_only",
+    "cosine_similarity": 0.9999922513961792,
+    "max_absolute_error": 0.0031732767820358276,
+    "mean_absolute_error": 0.0006420791614800692,
+    "root_mean_squared_error": 0.0008035602513700724,
+    "relative_error": 0.03688376396894455
+  },
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "mlp",
+    "layer": "fc1",
+    "mode": "weight+act",
+    "cosine_similarity": 0.999920129776001,
+    "max_absolute_error": 0.012820526957511902,
+    "mean_absolute_error": 0.0019989083521068096,
+    "root_mean_squared_error": 0.002511495491489768,
+    "relative_error": 0.11721424758434296
+  },
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "mlp",
+    "layer": "fc2",
+    "mode": "weight_only",
+    "cosine_similarity": 0.9999923706054688,
+    "max_absolute_error": 0.0032986998558044434,
+    "mean_absolute_error": 0.0006269729929044843,
+    "root_mean_squared_error": 0.0007859379984438419,
+    "relative_error": 0.02810957282781601
+  },
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "mlp",
+    "layer": "fc2",
+    "mode": "weight+act",
+    "cosine_similarity": 0.9997349977493286,
+    "max_absolute_error": 0.021319478750228882,
+    "mean_absolute_error": 0.0036646330263465643,
+    "root_mean_squared_error": 0.00458004605025053,
+    "relative_error": 0.13711115717887878
+  },
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "attention",
+    "layer": "q_proj",
+    "mode": "weight_only",
+    "cosine_similarity": 0.9999991655349731,
+    "max_absolute_error": 0.0007365606725215912,
+    "mean_absolute_error": 0.0001226702588610351,
+    "root_mean_squared_error": 0.0001543241523904726,
+    "relative_error": 0.006695383694022894
+  },
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "attention",
+    "layer": "q_proj",
+    "mode": "weight+act",
+    "cosine_similarity": 0.9999936819076538,
+    "max_absolute_error": 0.0021594949066638947,
+    "mean_absolute_error": 0.0003582296194508672,
+    "root_mean_squared_error": 0.00045118731213733554,
+    "relative_error": 0.019157662987709045
+  },
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "attention",
+    "layer": "k_proj",
+    "mode": "weight_only",
+    "cosine_similarity": 0.9999995231628418,
+    "max_absolute_error": 0.0005776062607765198,
+    "mean_absolute_error": 0.00011391131556592882,
+    "root_mean_squared_error": 0.00014364879461936653,
+    "relative_error": 0.00612219050526619
+  },
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "attention",
+    "layer": "k_proj",
+    "mode": "weight+act",
+    "cosine_similarity": 0.9999936819076538,
+    "max_absolute_error": 0.00205405056476593,
+    "mean_absolute_error": 0.0003547921369317919,
+    "root_mean_squared_error": 0.0004463103541638702,
+    "relative_error": 0.02572614513337612
+  },
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "attention",
+    "layer": "v_proj",
+    "mode": "weight_only",
+    "cosine_similarity": 0.9999919533729553,
+    "max_absolute_error": 0.0020687803626060486,
+    "mean_absolute_error": 0.00040004937909543514,
+    "root_mean_squared_error": 0.0005038871895521879,
+    "relative_error": 0.01874423772096634
+  },
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "attention",
+    "layer": "v_proj",
+    "mode": "weight+act",
+    "cosine_similarity": 0.9999356269836426,
+    "max_absolute_error": 0.005069434642791748,
+    "mean_absolute_error": 0.0011468224693089724,
+    "root_mean_squared_error": 0.0014210238587111235,
+    "relative_error": 0.07009990513324738
+  },
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "attention",
+    "layer": "out_proj",
+    "mode": "weight_only",
+    "cosine_similarity": 0.999992847442627,
+    "max_absolute_error": 0.001739896833896637,
+    "mean_absolute_error": 0.00037813556264154613,
+    "root_mean_squared_error": 0.0004770676314365119,
+    "relative_error": 0.021497752517461777
+  },
+  {
+    "experiment": "sensitivity_weightonly_vs_full",
+    "model": "attention",
+    "layer": "out_proj",
+    "mode": "weight+act",
+    "cosine_similarity": 0.9997950792312622,
+    "max_absolute_error": 0.012902677059173584,
+    "mean_absolute_error": 0.0017417942872270942,
+    "root_mean_squared_error": 0.0025486424565315247,
+    "relative_error": 0.09852379560470581
+  }
+]

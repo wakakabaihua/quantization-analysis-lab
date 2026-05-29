@@ -1,0 +1,24 @@
+name: int8_per_tensor_sym
+description: >
+  INT8 per-tensor symmetric quantization with MinMax calibration.
+  Baseline INT8 configuration. Uses a single scale/zero-point for
+  the entire weight matrix. Symmetric means zero_point = 0.
+
+quantization:
+  enabled: true
+  dtype: int8
+  symmetric: true
+  weight_only: false
+
+calibration:
+  method: minmax
+  num_samples: 128
+  percentile: null
+
+granularity: per_tensor
+
+experiment:
+  layers:
+    - mlp
+    - attention
+  log_outputs: true

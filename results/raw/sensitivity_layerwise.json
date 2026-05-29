@@ -1,0 +1,80 @@
+[
+  {
+    "experiment": "sensitivity_layerwise",
+    "model": "mlp",
+    "layer": "fc1",
+    "num_bits": 8,
+    "weight_only": false,
+    "calibration": "minmax",
+    "cosine_similarity": 0.999920129776001,
+    "max_absolute_error": 0.012820526957511902,
+    "mean_absolute_error": 0.0019989083521068096,
+    "root_mean_squared_error": 0.002511495491489768,
+    "relative_error": 0.11721424758434296
+  },
+  {
+    "experiment": "sensitivity_layerwise",
+    "model": "mlp",
+    "layer": "fc2",
+    "num_bits": 8,
+    "weight_only": false,
+    "calibration": "minmax",
+    "cosine_similarity": 0.9997349977493286,
+    "max_absolute_error": 0.021319478750228882,
+    "mean_absolute_error": 0.0036646330263465643,
+    "root_mean_squared_error": 0.00458004605025053,
+    "relative_error": 0.13711115717887878
+  },
+  {
+    "experiment": "sensitivity_layerwise",
+    "model": "attention",
+    "layer": "q_proj",
+    "num_bits": 8,
+    "weight_only": false,
+    "calibration": "minmax",
+    "cosine_similarity": 0.9999936819076538,
+    "max_absolute_error": 0.0021594949066638947,
+    "mean_absolute_error": 0.0003582296194508672,
+    "root_mean_squared_error": 0.00045118731213733554,
+    "relative_error": 0.019157662987709045
+  },
+  {
+    "experiment": "sensitivity_layerwise",
+    "model": "attention",
+    "layer": "k_proj",
+    "num_bits": 8,
+    "weight_only": false,
+    "calibration": "minmax",
+    "cosine_similarity": 0.9999936819076538,
+    "max_absolute_error": 0.00205405056476593,
+    "mean_absolute_error": 0.0003547921369317919,
+    "root_mean_squared_error": 0.0004463103541638702,
+    "relative_error": 0.02572614513337612
+  },
+  {
+    "experiment": "sensitivity_layerwise",
+    "model": "attention",
+    "layer": "v_proj",
+    "num_bits": 8,
+    "weight_only": false,
+    "calibration": "minmax",
+    "cosine_similarity": 0.9999356269836426,
+    "max_absolute_error": 0.005069434642791748,
+    "mean_absolute_error": 0.0011468224693089724,
+    "root_mean_squared_error": 0.0014210238587111235,
+    "relative_error": 0.07009990513324738
+  },
+  {
+    "experiment": "sensitivity_layerwise",
+    "model": "attention",
+    "layer": "out_proj",
+    "num_bits": 8,
+    "weight_only": false,
+    "calibration": "minmax",
+    "cosine_similarity": 0.9997950792312622,
+    "max_absolute_error": 0.012902677059173584,
+    "mean_absolute_error": 0.0017417942872270942,
+    "root_mean_squared_error": 0.0025486424565315247,
+    "relative_error": 0.09852379560470581
+  }
+]

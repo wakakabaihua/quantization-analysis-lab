@@ -1,0 +1,25 @@
+name: int8_per_channel_asym
+description: >
+  INT8 per-channel asymmetric quantization with percentile calibration.
+  Combines the benefits of per-channel granularity and asymmetric range.
+  Expected to produce the best INT8 accuracy at the cost of higher
+  calibration complexity.
+
+quantization:
+  enabled: true
+  dtype: int8
+  symmetric: false
+  weight_only: false
+
+calibration:
+  method: percentile
+  num_samples: 128
+  percentile: 99.99
+
+granularity: per_channel
+
+experiment:
+  layers:
+    - mlp
+    - attention
+  log_outputs: true

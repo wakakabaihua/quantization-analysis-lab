@@ -1,0 +1,3 @@
+timestamp,experiment,model,config,cosine_similarity,max_absolute_error,mean_absolute_error,root_mean_squared_error,relative_error
+1780036280.9749377,fp16_baseline,mlp,fp16_baseline,0.9999998211860657,0.0,0.0,0.0,0.0
+1780036280.9847085,fp16_baseline,attention,fp16_baseline,0.9999996423721313,0.0,0.0,0.0,0.0

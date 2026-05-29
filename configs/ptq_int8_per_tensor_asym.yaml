@@ -1,0 +1,24 @@
+name: int8_per_tensor_asym
+description: >
+  INT8 per-tensor asymmetric quantization with percentile calibration.
+  Asymmetric allows a non-zero zero-point, which benefits activations
+  with non-zero-centered distributions (e.g., after ReLU or GELU).
+
+quantization:
+  enabled: true
+  dtype: int8
+  symmetric: false
+  weight_only: false
+
+calibration:
+  method: percentile
+  num_samples: 128
+  percentile: 99.99
+
+granularity: per_tensor
+
+experiment:
+  layers:
+    - mlp
+    - attention
+  log_outputs: true

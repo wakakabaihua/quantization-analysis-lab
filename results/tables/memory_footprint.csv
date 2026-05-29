@@ -1,0 +1,13 @@
+config,model,dtype,weight_only,fp32_weight_mb,quantized_weight_mb,memory_reduction_x
+fp16_baseline,attention,fp16,False,4.194,2.097,2.0
+int8_per_tensor_sym,attention,int8,False,4.194,1.049,4.0
+int8_per_channel_sym,attention,int8,False,4.194,1.049,4.0
+int8_per_tensor_asym,attention,int8,False,4.194,1.049,4.0
+int8_per_channel_asym,attention,int8,False,4.194,1.049,4.0
+int4_weight_only,attention,int4,True,4.194,0.524,8.0
+fp16_baseline,mlp,fp16,False,8.389,4.194,2.0
+int8_per_tensor_sym,mlp,int8,False,8.389,2.097,4.0
+int8_per_channel_sym,mlp,int8,False,8.389,2.097,4.0
+int8_per_tensor_asym,mlp,int8,False,8.389,2.097,4.0
+int8_per_channel_asym,mlp,int8,False,8.389,2.097,4.0
+int4_weight_only,mlp,int4,True,8.389,1.049,8.0

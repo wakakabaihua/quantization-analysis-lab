@@ -1,0 +1,26 @@
+name: int4_weight_only
+description: >
+  INT4 weight-only quantization with per-channel percentile calibration.
+  Activations remain in float; only weights are quantized. At 4-bit,
+  weight-only mode avoids the severe activation distortion that full
+  INT4 quantization would produce. Representative of weight-compression
+  strategies used in LLM deployment (GPTQ-style).
+
+quantization:
+  enabled: true
+  dtype: int4
+  symmetric: true
+  weight_only: true
+
+calibration:
+  method: percentile
+  num_samples: 128
+  percentile: 99.9
+
+granularity: per_channel
+
+experiment:
+  layers:
+    - mlp
+    - attention
+  log_outputs: true

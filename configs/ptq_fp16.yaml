@@ -1,0 +1,23 @@
+name: fp16_baseline
+description: >
+  FP16 baseline reference. No quantization applied.
+  All downstream experiments are compared against this.
+
+quantization:
+  enabled: false
+  dtype: fp16
+  symmetric: true
+  weight_only: false
+
+calibration:
+  method: none
+  num_samples: 0
+  percentile: null
+
+granularity: none
+
+experiment:
+  layers:
+    - mlp
+    - attention
+  log_outputs: true
