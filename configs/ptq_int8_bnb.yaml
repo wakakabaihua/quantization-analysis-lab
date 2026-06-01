@@ -1,0 +1,31 @@
+name: int8_bnb_llm_int8
+description: >
+  INT8 quantization via bitsandbytes Linear8bitLt (LLM.int8() algorithm).
+  Weights are stored as int8; outlier activation features (> threshold 6.0)
+  are computed in float precision via mixed-precision decomposition.
+  Works on CPU and CUDA. No calibration data required.
+  Real compressed storage: ~50% memory reduction vs float16.
+
+quantization:
+  enabled: true
+  dtype: int8
+  symmetric: true
+  weight_only: true
+
+calibration:
+  method: minmax
+  num_samples: 0
+  percentile: null
+
+granularity: per_tensor
+
+backend: bitsandbytes
+
+bnb:
+  threshold: 6.0
+
+experiment:
+  layers:
+    - mlp
+    - attention
+  log_outputs: true

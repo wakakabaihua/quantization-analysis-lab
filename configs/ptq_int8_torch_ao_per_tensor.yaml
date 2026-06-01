@@ -1,0 +1,30 @@
+name: int8_torch_ao_per_tensor
+description: >
+  INT8 dynamic quantization via torch.ao.quantization.quantize_dynamic().
+  Weights are quantized to INT8 offline (at convert time).
+  Activations are quantized dynamically per inference call.
+  No calibration dataset is required.
+
+  Use this backend to compare against FakeQuantBackend and measure the
+  difference between simulated (float32) and real INT8 kernel execution.
+
+quantization:
+  enabled: true
+  dtype: int8
+  symmetric: true
+  weight_only: false
+
+calibration:
+  method: minmax
+  num_samples: 128
+  percentile: null
+
+granularity: per_tensor
+
+backend: torch_ao
+
+experiment:
+  layers:
+    - mlp
+    - attention
+  log_outputs: true

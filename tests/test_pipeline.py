@@ -17,6 +17,7 @@ import torch
 import torch.nn as nn
 
 from src.models.mlp_block import MLPBlock
+from src.quant.backends import FakeQuantBackend, get_backend, register_backend, QuantBackend
 from src.quant.error_analysis import compute_output_error
 from src.quant.ptq_pipeline import PTQPipeline, QuantizedLinear
 
@@ -151,9 +152,10 @@ class TestFromConfig:
             "granularity": "per_channel",
         }
         pipeline = PTQPipeline.from_config(config)
-        assert pipeline.num_bits == 8
-        assert pipeline.per_channel is True
-        assert pipeline.symmetric is True
+        assert isinstance(pipeline._backend, FakeQuantBackend)
+        assert pipeline._backend.num_bits == 8
+        assert pipeline._backend.per_channel is True
+        assert pipeline._backend.symmetric is True
 
     def test_from_config_fp16_disabled(self):
         config = {
@@ -163,3 +165,53 @@ class TestFromConfig:
         }
         pipeline = PTQPipeline.from_config(config)
         assert pipeline.enabled is False
+        assert pipeline._backend is None
+
+    def test_from_config_backend_field(self):
+        """Explicit backend field in config is respected."""
+        config = {
+            "quantization": {"enabled": True, "dtype": "int8", "symmetric": True, "weight_only": False},
+            "calibration": {"method": "minmax", "num_samples": 8, "percentile": None},
+            "granularity": "per_tensor",
+            "backend": "fake",
+        }
+        pipeline = PTQPipeline.from_config(config)
+        assert isinstance(pipeline._backend, FakeQuantBackend)
+        assert pipeline._backend.name == "fake_quant"
+
+
+class TestBackendRegistry:
+    def test_get_backend_fake(self):
+        backend = get_backend("fake", num_bits=8, symmetric=True)
+        assert isinstance(backend, FakeQuantBackend)
+
+    def test_get_backend_fake_quant_alias(self):
+        backend = get_backend("fake_quant", num_bits=4, symmetric=True, per_channel=True)
+        assert isinstance(backend, FakeQuantBackend)
+        assert backend.num_bits == 4
+        assert backend.per_channel is True
+
+    def test_get_backend_unknown_raises(self):
+        with pytest.raises(ValueError, match="Unknown quantization backend"):
+            get_backend("nonexistent_backend")
+
+    def test_register_backend(self):
+        """Custom backends can be registered and retrieved."""
+        class DummyBackend(QuantBackend):
+            def calibrate(self, model, calibration_fn):
+                pass
+            def convert(self, model):
+                import copy
+                return copy.deepcopy(model)
+
+        register_backend("dummy_test", DummyBackend)
+        backend = get_backend("dummy_test")
+        assert isinstance(backend, DummyBackend)
+
+    def test_pipeline_uses_backend_for_quantize(self):
+        """PTQPipeline.quantize() delegates to the backend's convert()."""
+        model = _make_mlp()
+        pipeline = PTQPipeline(num_bits=8, backend="fake")
+        model_q = _run(pipeline, model)
+        q_linears = [m for m in model_q.modules() if isinstance(m, QuantizedLinear)]
+        assert len(q_linears) == 2

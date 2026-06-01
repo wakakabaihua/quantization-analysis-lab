@@ -1,0 +1,57 @@
+name: mixed_precision
+description: >
+  Mixed-precision PTQ: assigns different bit-widths to different layers based
+  on their sensitivity to quantization.
+
+  Rationale:
+    Uniform INT4 quantization can degrade quality in sensitive layers.
+    Uniform INT8 quantization is conservative and wastes compression budget on
+    robust layers. Mixed precision assigns INT8 to sensitive layers and INT4
+    to robust layers, hitting a better accuracy–compression tradeoff.
+
+  Sensitivity scores (from scripts/sensitivity_analysis.py):
+    Layers with cosine_similarity < threshold are considered sensitive
+    and receive INT8. Layers above the threshold receive INT4.
+
+  Example assignment (MLP model):
+    fc1 → INT8   (sensitive: cosine_similarity ≈ 0.9999 at INT8 alone)
+    fc2 → INT4   (robust:    cosine_similarity ≈ 0.9999 at INT8 alone)
+
+  Use scripts/mixed_precision_search.py to auto-generate this config from
+  your own sensitivity data.
+
+quantization:
+  enabled: true
+  dtype: int8         # default bit-width for layers not listed below
+  symmetric: true
+  weight_only: true
+
+calibration:
+  method: minmax
+  num_samples: 128
+
+granularity: per_channel
+
+backend: mixed_precision
+
+# Per-layer bit-width overrides.
+# Layers not listed here fall back to quantization.dtype (INT8 above).
+# Layer names must match the dotted attribute paths in the model
+# (e.g., "fc1", "fc2" for MLPBlock; "q_proj", "out_proj" for AttentionBlock).
+mixed_precision:
+  default_num_bits: 8   # fallback for layers not listed in 'layers'
+  layers:
+    # MLP layers
+    fc1: {num_bits: 8}   # keep sensitive feed-forward expand layer at INT8
+    fc2: {num_bits: 4}   # compress robust feed-forward project layer to INT4
+    # Attention layers
+    q_proj:   {num_bits: 8}   # query projection is sensitivity-critical
+    k_proj:   {num_bits: 8}   # key projection is sensitivity-critical
+    v_proj:   {num_bits: 4}   # value projection is relatively robust
+    out_proj: {num_bits: 4}   # output projection is relatively robust
+
+experiment:
+  layers:
+    - mlp
+    - attention
+  log_outputs: true

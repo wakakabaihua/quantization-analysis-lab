@@ -1,0 +1,36 @@
+name: int4_gptq
+description: >
+  INT4 weight-only quantization using the GPTQ algorithm (Frantar et al.,
+  ICLR 2023). GPTQ exploits second-order Hessian information to propagate
+  each column's quantization error to subsequent columns, minimising the
+  per-layer output error. Produces lower quantization error than standard
+  MinMax fake-quant at INT4 without any special hardware kernel requirements.
+
+  Key differences from int4_weight_only (FakeQuantBackend):
+    - Requires calibration data to compute the layer-wise Hessian.
+    - Weight updates compensate for already-quantized columns.
+    - The converted model is a plain nn.Linear (no special inference module).
+
+quantization:
+  enabled: true
+  dtype: int4
+  symmetric: true
+  weight_only: true
+
+calibration:
+  method: minmax
+  num_samples: 128
+
+granularity: per_channel
+
+backend: gptq
+
+gptq:
+  damp_percent: 0.01   # fraction of mean Hessian diagonal used for damping
+  blocksize: 128       # columns processed per block in the GPTQ loop
+
+experiment:
+  layers:
+    - mlp
+    - attention
+  log_outputs: true

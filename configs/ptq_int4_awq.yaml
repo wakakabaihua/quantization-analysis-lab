@@ -1,0 +1,42 @@
+name: int4_awq
+description: >
+  INT4 weight-only quantization using the AWQ algorithm (Lin et al.,
+  MLSys 2024). AWQ finds per-input-channel scales that protect important
+  weight channels — those paired with large activation magnitudes — by
+  giving them more representation in the quantized grid.
+
+  Scale search: for alpha in {0, 0.05, …, 1.0}
+    s(alpha) = |x̄|^alpha   (|x̄| = per-channel mean activation magnitude)
+    error = ||X @ W^T − X @ (Q(W×s)/s)^T||²_F
+  The alpha minimising the error is selected.
+
+  Inference (AWQLinear module):
+    y = Q(W × s*) @ (x / s*) + bias  ≈  W @ x  (reduced quant error)
+
+  Key differences from int4_weight_only (FakeQuantBackend):
+    - Requires calibration data for activation-aware scale search.
+    - Scale is stored in the AWQLinear inference module.
+    - Important channels use more of the quantization dynamic range.
+
+quantization:
+  enabled: true
+  dtype: int4
+  symmetric: true
+  weight_only: true
+
+calibration:
+  method: minmax
+  num_samples: 128
+
+granularity: per_channel
+
+backend: awq
+
+awq:
+  n_grid: 20   # number of alpha values tried in the scale search (0 … 1)
+
+experiment:
+  layers:
+    - mlp
+    - attention
+  log_outputs: true

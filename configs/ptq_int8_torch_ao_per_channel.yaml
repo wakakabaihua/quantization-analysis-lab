@@ -1,7 +1,8 @@
-name: int8_per_channel_sym
+name: int8_torch_ao_per_channel
 description: >
-  INT8 per-channel symmetric quantization with MinMax calibration.
-  Uses one scale/zero-point per output channel. Typically reduces
+  INT8 dynamic quantization via torch.ao.quantization.quantize_dynamic()
+  with per-channel weight quantization (PerChannelMinMaxObserver).
+  Per-channel weights allow a separate scale per output channel, reducing
   quantization error for layers with large inter-channel weight variance.
 
 quantization:
@@ -17,7 +18,7 @@ calibration:
 
 granularity: per_channel
 
-backend: fake
+backend: torch_ao
 
 experiment:
   layers:

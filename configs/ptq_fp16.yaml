@@ -16,6 +16,8 @@ calibration:
 
 granularity: none
 
+backend: fake
+
 experiment:
   layers:
     - mlp

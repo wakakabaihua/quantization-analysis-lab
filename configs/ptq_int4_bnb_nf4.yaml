@@ -1,0 +1,34 @@
+name: int4_bnb_nf4
+description: >
+  INT4 NormalFloat4 (NF4) quantization via bitsandbytes Linear4bit.
+  NF4 is information-theoretically optimal for normally distributed weights
+  (as found in pretrained language models). Optionally combines with double
+  quantization (compress_statistics) for additional ~0.4 bits/param savings.
+  Requires a CUDA device for quantized forward passes.
+  Typical memory reduction: ~75% vs float16.
+
+quantization:
+  enabled: true
+  dtype: int4
+  symmetric: true
+  weight_only: true
+
+calibration:
+  method: minmax
+  num_samples: 0
+  percentile: null
+
+granularity: per_channel
+
+backend: bitsandbytes
+
+bnb:
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_compute_dtype: float32
+  bnb_4bit_use_double_quant: false
+
+experiment:
+  layers:
+    - mlp
+    - attention
+  log_outputs: true

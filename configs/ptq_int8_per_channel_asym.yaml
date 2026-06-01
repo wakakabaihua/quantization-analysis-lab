@@ -18,6 +18,8 @@ calibration:
 
 granularity: per_channel
 
+backend: fake
+
 experiment:
   layers:
     - mlp

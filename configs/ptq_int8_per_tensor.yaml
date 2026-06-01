@@ -17,6 +17,8 @@ calibration:
 
 granularity: per_tensor
 
+backend: fake
+
 experiment:
   layers:
     - mlp
